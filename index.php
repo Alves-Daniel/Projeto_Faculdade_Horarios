@@ -33,7 +33,7 @@ foreach ($data as $value) {
      * 1º - A string que desejamos inserir no QR Code.
      * 2º - O nome da imagem que criamos no passo anterior.
      */
-    QRcode::png($value['disciplina'], $qrCodeName);
+    QRcode::png(  "Disciplina  ". "Professor  ". "Sala  ". "\n". $value['disciplina']." ".$value['professor']. " ". $value['sala'], $qrCodeName);
     
     // Para finalizar realizamos a exibição da imagem no navegador.
     echo "<img src='{$qrCodeName}'>";
