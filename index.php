@@ -6,30 +6,30 @@ require_once('phpqrcode/qrlib.php');
 $servidor = "localhost";
 $usuario  = "root";
 $senha    = "1997";
-$dbname   = "horarios";
+$dbname   = "TESTE";
 
 // Realizamos a conexão com o banco de dados.
 $conn = new PDO(
     'mysql:host='.$servidor.';dbname='.$dbname, $usuario, $senha);
 
 // Construimos nossa query de consulta.
-$queryString = 'SELECT * FROM disciplinas';
+$queryString = 'SELECT * FROM Disciplina';
 
 // execucamos a pesquisa, retornando todos os registros da tabela cadastro.
 $data = $conn->query($queryString);
-
 // Realizamos um laço de repetição para percorrer cada registro retornado do DB.
 foreach ($data as $value) {
     // Configuramos um nome único para o QR Code.
-    $qrCodeName = "imagem_qrcode_{$value['disciplina']}.png";
+    $qrCodeName = "imagem_qrcode_{$value['cod_D']}.png";
 
     /**
      * Realizamos a criação da imagem PNG, sendo passado as seguintes informaões:
      * 1º - A string que desejamos inserir no QR Code.
      * 2º - O nome da imagem que criamos no passo anterior.
      */
-    QRcode::png(  "Disciplina: ". $value['disciplina']. "\n". "Professor: ". $value['professor']. "\n". "Sala: ". $value['sala'], $qrCodeName);
-    
+    echo $value['dia']. QRcode::png(  "Dia: ". $value['dia']. "\n". "Disciplina: ". $value['n_disciplina']. "\n". "Professor: ". $value['professor']. "\n". "Sala: ". $value['sala'], $qrCodeName);
+   
     // Para finalizar realizamos a exibição da imagem no navegador.
     echo "<img src='{$qrCodeName}'>";
 }
+?>
